@@ -1,0 +1,19 @@
+<main class="w-screen h-full container mx-auto p-4">
+
+  <app-form-vente 
+  [categoriesVentes] = "categoriesVentes"  [articlesConfections] = "articlesConfections" 
+  (libelleExist)="searchArticleVente($event)"  [articleVentesSearched]="articleVentesSearched" 
+  [categories]="categories" 
+   (articleToSend)="addOrUpdateArticleVente($event)"                         
+  ></app-form-vente>
+  <app-list-vente 
+  [articleVentes] = "articleVentes" 
+  [links] = "links" 
+  (page)="changePage($event)" (articleToEdit)="edit($event)" (idToDelete)="delete($event)" 
+  (trie)="triage($event)" (perpage)="perpage($event)"
+  
+  ></app-list-vente>
+
+    
+
+</main>

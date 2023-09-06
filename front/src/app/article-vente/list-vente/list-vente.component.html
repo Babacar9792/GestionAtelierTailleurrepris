@@ -1,0 +1,100 @@
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg mx-auto bg-white p-8 rounded-md w-full h-full">
+
+
+  <div class="w-full flex justify-between items-center">
+    <h5 class="font-bold underline">Liste des articles de ventes </h5>
+    <div class="w-40 m-3 font-bold">
+      <form [formGroup]="nombreArticleParLigne" (ngSubmit)="parPageNombreDeligne()">
+
+        <label for="pagination">Nombre de ligne par page</label>
+        <div>
+
+          <input type="number" (input)="pagination($event)" formControlName="paginationNumber" min="1"
+            class="px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 w-20">
+            <button class="bg-green-600  text-white font-bold rounded-md px-3 py-2" [disabled]="nombreArticleParLigne.invalid" [ngClass]="{'bg-blue-500' : nombreArticleParLigne.valid}">Ok</button>
+        </div>
+        <div class="invalid-feedback text-red-800" *ngIf="nombreArticleParLigne.invalid && (paginationNumber?.touched || paginationNumber?.dirty)">
+          <span *ngIf="paginationNumber?.hasError('required') && (paginationNumber?.touched || paginationNumber?.dirty)">
+            Ce champ est obligatoire
+          </span>
+          <span *ngIf="paginationNumber?.hasError('min') && (paginationNumber?.touched || paginationNumber?.dirty)">
+            La valeur doit etre superieur ou egal à 1
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <div class="w-full max-h-60 overflow-y-auto">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 max-h-48 overflow-scroll">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3 cursor-pointer" (click)="triage()"
+            title="Clicquer pour classer la page currente par ordre croissant ou decroissant">
+            libelle
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Quantite en stock
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Articles confections
+          </th>
+          <th scope="col" class="px-6 py-3">
+            editer
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Action
+          </th>
+        </tr>
+      </thead>
+      <tbody class="">
+        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700" *ngFor="let articleventes of articleVentes">
+          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            {{articleventes.libelle}}
+          </th>
+          <td class="px-6 py-4">
+            {{articleventes.quantite_stock}}
+          </td>
+          <td class="px-6 py-4 max-w-max ">
+            <ul class="max-w-full flex justify-around">
+              <li *ngFor="let confection of articleventes.confection_by_vente">
+                {{confection.libelle_article+'_'+confection.quantite_necessaire}}
+              </li>
+            </ul>
+          </td>
+          <td class="px-6 py-4" (click)="sendArticleToEdit(articleventes)">
+            <div class="h-7 w-7 text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round"
+                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                editer
+              </svg>
+  
+            </div>
+  
+  
+          </td>
+          <td class="px-6 py-4  flex justify-center items-start">
+            <button class="w-12 text-white h-9 border-red-100 bg-red-600 rounded-md"
+              (click)="sendIdTodelete($event, articleventes.id!)">supp</button>
+          </td>
+        </tr>
+  
+  
+  
+  
+      </tbody>
+    </table>
+  </div>
+  
+
+
+
+
+
+  <app-pagination [links]="links" (page)="changePage($event)"></app-pagination>
+</div>
+
+<!-- Pagination -->
