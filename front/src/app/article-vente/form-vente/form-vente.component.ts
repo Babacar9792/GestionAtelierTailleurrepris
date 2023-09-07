@@ -83,6 +83,8 @@ export class FormVenteComponent {
         );
       };
   }
+
+  
   ValidationConfectionByVente(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value;
@@ -116,7 +118,7 @@ export class FormVenteComponent {
     prix_confection: [0, [Validators.min(1)]],
     photo: ['', []],
     categorie: ['', [Validators.required]],
-    confection_by_vente: this.fb.array([]),
+    confection_by_vente: this.fb.array([], [this.ValidationConfectionByVente]),
     marge: [5000, [Validators.required, Validators.min(5000)]]
   });
   // this.ValidationConfectionByVente()

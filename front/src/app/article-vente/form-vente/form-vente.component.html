@@ -214,9 +214,9 @@
                             et fils
                         </span> -->
                         <span
-                            *ngIf="registerFormForSell.get('confection_by_vente')?.hasError('minCategorieConfectionRequired') && (registerFormForSell.get('confection_by_vente')?.touched || registerFormForSell.get('confection_by_vente')?.dirty)"
+                            *ngIf="confection_by_vente.hasError('minCategorieConfectionRequired') && (registerFormForSell.get('confection_by_vente')?.touched || registerFormForSell.get('confection_by_vente')?.dirty)"
                             class="text-danger ">
-                            Veuillez selectionner au moins trois articles de confections
+                            Veuillez selectionner au moins trois articles de confections de categorie tissu, de categorie bouton et de categorie tissu
                         </span>
 
                         <!-- <span

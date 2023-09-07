@@ -14,5 +14,4 @@ export class PaginationComponent {
   {
     this.page.emit(+url[url.length - 1])
   }
-
 }

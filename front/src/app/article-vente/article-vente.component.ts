@@ -8,7 +8,7 @@ import { Links } from '../iterfaces/links';
 import { DataResponse } from '../iterfaces/data-response';
 import { FormVenteComponent } from './form-vente/form-vente.component';
 import { FormControl, FormGroup } from '@angular/forms';
-import { map } from 'rxjs';
+import { debounce, debounceTime, map } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 
 @Component({
@@ -74,11 +74,13 @@ export class ArticleVenteComponent implements OnInit {
     this.getData(page, this.nombreDeLigne);
     this.currentPage = page;
     this.croissantOrDecroissant = true;
-
   }
 
   searchArticleVente(event: string) {
-    const sub = this.articleVenteService.search('articleVente/search/' + event).subscribe({
+    const sub = this.articleVenteService.search('articleVente/search/' + event).pipe(
+      debounceTime(300)
+    )
+    .subscribe({
       next: (value: ResponseArticleVente<ArticleConfection>) => {
         this.articleVentesSearched = value.data
         console.log(value);
@@ -130,18 +132,9 @@ export class ArticleVenteComponent implements OnInit {
             console.log(this.articleVentes[index]);
             console.log(value.data);
             this.clearForm();
-            
-            
             this.articleVentes[index] = value.data[0];
-            
           }
-          else{
-
-          }
-
-
           alert(value.message);
-          
         },
         error: (error) => console.log(error)
 
@@ -236,6 +229,11 @@ export class ArticleVenteComponent implements OnInit {
     this.formvente.confection_by_vente.clear();
     this.formvente.registerFormForSell.reset();
     this.formvente.image = environment.defaultImage;
+  }
+
+  searchArticle(event : string)
+  {
+
   }
 
 

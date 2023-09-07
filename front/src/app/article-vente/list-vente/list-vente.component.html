@@ -3,6 +3,18 @@
 
   <div class="w-full flex justify-between items-center">
     <h5 class="font-bold underline">Liste des articles de ventes </h5>
+
+    <div class=" w-7/12 p-3 font-bold text-center flex flex-col items-center">
+      <label for="searchedArticleVente">Recherche</label>
+      <input type="text" placeholder="Rechercher un article"
+        class="p-3 rounded-md border-2 focus:outline-none focus:border-blue-200 w-62" id="searchedArticleVente" (input)="searchArticleVente($event)">
+      <div class="w-62 relative">
+        <ul class="border-3 h-3  w-64">
+          <li class=" text-white w-64 rounded-md border-2 p-1 m-1 bg-blue-500" *ngFor="let i of [1,3,23,4]">{{i}}</li>
+
+        </ul>
+      </div>
+    </div>
     <div class="w-40 m-3 font-bold">
       <form [formGroup]="nombreArticleParLigne" (ngSubmit)="parPageNombreDeligne()">
 
@@ -11,10 +23,14 @@
 
           <input type="number" (input)="pagination($event)" formControlName="paginationNumber" min="1"
             class="px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 w-20">
-            <button class="bg-green-600  text-white font-bold rounded-md px-3 py-2" [disabled]="nombreArticleParLigne.invalid" [ngClass]="{'bg-blue-500' : nombreArticleParLigne.valid}">Ok</button>
+          <button class="bg-green-600  text-white font-bold rounded-md px-3 py-2"
+            [disabled]="nombreArticleParLigne.invalid"
+            [ngClass]="{'bg-blue-500' : nombreArticleParLigne.valid}">Ok</button>
         </div>
-        <div class="invalid-feedback text-red-800" *ngIf="nombreArticleParLigne.invalid && (paginationNumber?.touched || paginationNumber?.dirty)">
-          <span *ngIf="paginationNumber?.hasError('required') && (paginationNumber?.touched || paginationNumber?.dirty)">
+        <div class="invalid-feedback text-red-800"
+          *ngIf="nombreArticleParLigne.invalid && (paginationNumber?.touched || paginationNumber?.dirty)">
+          <span
+            *ngIf="paginationNumber?.hasError('required') && (paginationNumber?.touched || paginationNumber?.dirty)">
             Ce champ est obligatoire
           </span>
           <span *ngIf="paginationNumber?.hasError('min') && (paginationNumber?.touched || paginationNumber?.dirty)">
@@ -71,24 +87,24 @@
                   d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                 editer
               </svg>
-  
+
             </div>
-  
-  
+
+
           </td>
           <td class="px-6 py-4  flex justify-center items-start">
             <button class="w-12 text-white h-9 border-red-100 bg-red-600 rounded-md"
               (click)="sendIdTodelete($event, articleventes.id!)">supp</button>
           </td>
         </tr>
-  
-  
-  
-  
+
+
+
+
       </tbody>
     </table>
   </div>
-  
+
 
 
 

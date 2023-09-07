@@ -18,6 +18,7 @@ export class ListVenteComponent {
   @Output() idToDelete = new EventEmitter<number>();
   @Output() trie = new EventEmitter<boolean>();
   @Output() perpage = new EventEmitter<number>();
+    @Output() searchedArticle = new EventEmitter<string>();
   trieValue : boolean = true;
   idsToDeleted : number[] = [];
   nombreArticleParLigne !: FormGroup;
@@ -48,8 +49,6 @@ export class ListVenteComponent {
   triage()
   {
     this.trieValue = !this.trieValue;
-    console.log(this.links.filter((element : Links) => element.active === true)[0].url[this.links.filter((element : Links) => element.active === true)[0].url.length - 1]);
-    
     this.trie.emit(this.trieValue);
   }
 
@@ -91,6 +90,14 @@ export class ListVenteComponent {
   {
     let inputValue = event.target as HTMLInputElement;
     onlyNumber(inputValue.value, inputValue);
+  }
+
+  searchArticleVente(event : Event){
+    let input = event.target as HTMLInputElement;
+    this.searchedArticle.emit(input.value);
+
+
+
   }
 
 }

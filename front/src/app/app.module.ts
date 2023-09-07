@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+// import {routing}
 
 import { AppComponent } from './app.component';
 
@@ -10,6 +11,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FormVenteComponent } from './article-vente/form-vente/form-vente.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CategorieComponent } from './categorie/categorie.component';
+import { RouterModule } from '@angular/router';
+import { routes } from './app.module.routing';
 
 @NgModule({
   declarations: [
@@ -18,13 +22,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     ListVenteComponent,
     NavbarComponent,
     PaginationComponent,
-    FormVenteComponent
+    FormVenteComponent,
+    CategorieComponent
 
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forRoot(routes)
     
   ],
   providers: [],
